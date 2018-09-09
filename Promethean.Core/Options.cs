@@ -10,6 +10,8 @@ namespace Promethean.Core
 
         public int NumberOfRooms { get; set; }
 
+        public int RandomSeed { get; set; }
+
         public Options()
         {
             Width = 101;
@@ -17,6 +19,7 @@ namespace Promethean.Core
             RoomWidth = 5;
             RoomHeight = 5;
             NumberOfRooms = 7;
+            RandomSeed = 1;
         }
     }
 }
