@@ -14,10 +14,10 @@ namespace Promethean.Core
 
         public Options()
         {
-            Width = 101;
-            Height = 101;
-            RoomWidth = 5;
-            RoomHeight = 5;
+            Width = 51;
+            Height = 51;
+            RoomWidth = 11;
+            RoomHeight = 11;
             NumberOfRooms = 7;
             RandomSeed = 1;
         }

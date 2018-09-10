@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promethean.Core", "Promethean.Core\Promethean.Core.csproj", "{EC258AED-C56C-4C7B-84F9-EC3144838A62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promethean.Tests", "Promethean.Tests\Promethean.Tests.csproj", "{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{EC258AED-C56C-4C7B-84F9-EC3144838A62}.Release|x64.Build.0 = Release|Any CPU
 		{EC258AED-C56C-4C7B-84F9-EC3144838A62}.Release|x86.ActiveCfg = Release|Any CPU
 		{EC258AED-C56C-4C7B-84F9-EC3144838A62}.Release|x86.Build.0 = Release|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Debug|x64.Build.0 = Debug|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Debug|x86.Build.0 = Debug|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Release|x64.ActiveCfg = Release|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Release|x64.Build.0 = Release|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{3A3498F5-6F1F-4D33-9AF4-FE88AC26DA5D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
