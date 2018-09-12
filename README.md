@@ -5,7 +5,7 @@
 A procedural dungeon generator library compatible with Unity3d built on .Net Standard 2.0. Aiming to render in under 30 seconds on an iPhone 8 
 
 ## 1st Stage Goal
-- No walls, render as 2 only floor or empty tiles
+- [x] No walls, render as 2 only floor or empty tiles
 
 ## 2nd Stage Goals
 
@@ -24,4 +24,5 @@ Convert the byte array to a tileset that indicates:
 - No diagonals 
 - Only square rooms 
 - Fixed size rooms (temporary)
+- Grid must be power of 2
 
