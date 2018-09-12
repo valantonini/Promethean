@@ -12,10 +12,10 @@ namespace Promethean.Web.Controllers
 
         public IActionResult GetData()
         {
-
+            var seed = System.Guid.NewGuid().GetHashCode();
             var options = new Options()
             {
-                RandomSeed = new System.Random(System.Guid.NewGuid().GetHashCode()).Next()
+                RandomSeed = new System.Random(seed).Next()
             };
             var generator = new LevelGenerator(options);
             var level = generator.Generate();
@@ -23,6 +23,7 @@ namespace Promethean.Web.Controllers
 
             return Json(new
             {
+                seed = seed,
                 width = options.Width,
                 height = options.Height,
                 level = byteArray

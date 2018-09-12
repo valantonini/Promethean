@@ -1,8 +1,10 @@
 <div id="grid"></div>
-
+<div id="seed"></div>
 <script>
 
     $.get("Home/GetData", function (data) {
+        $('#seed').text("seed: " + data.seed)
+
         var tileLength = 15;
 
         var canvas = $('<canvas></canvas>').attr({
