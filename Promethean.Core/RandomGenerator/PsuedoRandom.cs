@@ -1,6 +1,6 @@
 using System;
 
-namespace Promethean.Core
+namespace Promethean.Core.RandomGenerator
 {
     public class PsuedoRandom : IPsuedoRandom
     {
@@ -11,7 +11,8 @@ namespace Promethean.Core
             _random = new Random(seed);
         }
 
-        public int Next(int min, int max){
+        public int Next(int min, int max)
+        {
             return _random.Next(min, max);
         }
     }

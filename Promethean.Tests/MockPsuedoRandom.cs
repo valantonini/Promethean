@@ -1,6 +1,7 @@
 using Promethean.Core;
 using System.IO;
 using System.Collections.Generic;
+using Promethean.Core.RandomGenerator;
 
 namespace Promethean.Tests
 {

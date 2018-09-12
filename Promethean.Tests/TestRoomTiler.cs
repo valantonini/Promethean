@@ -1,5 +1,7 @@
 using Xunit;
 using Promethean.Core;
+using FluentAssertions;
+using System.Drawing;
 
 namespace Promethean.Tests
 {
@@ -8,7 +10,7 @@ namespace Promethean.Tests
         [Fact]
         public void ShouldDetermingTopLeftCorner()
         {
-            var theCorner = new byte[,]{
+            var theGrid = new byte[,]{
                 {1,1,1},
                 {1,0,0},
                 {1,0,0}
@@ -19,20 +21,8 @@ namespace Promethean.Tests
                 {1,0,0},
                 {null,0,0}
             };
+
+            LevelTiler.GridEqualsMask(theGrid, new Point(1, 1), theMask).Should().Be(true);
         }
-
-        public bool GridEqualsMask(byte[,] grid, byte?[,] mask)
-        {
-            for (var row = 0; row < mask.GetLength(0); row++)
-            {
-                for (var column = 0; column < mask.GetLength(1); column++)
-                {
-
-                }
-            }
-
-            return false;
-        }
-
     }
 }

@@ -17,10 +17,26 @@
 
             for (var columnNumber = 0; columnNumber < columns.length; columnNumber++) {
 
-                if (data.level[rowNumber][columnNumber] == 1) {
-                    context.fillStyle = "#000000";
-                } else {
-                    context.fillStyle = "#ffffff";
+                switch (data.level[rowNumber][columnNumber]) {
+                    case 1://empty
+                        context.fillStyle = "#000000";
+                        break;
+                    case 2:
+                        context.fillStyle = "#ff0000";
+                        break;
+                    case 3:
+                        context.fillStyle = "#00ff00";
+                        break;
+                    case 4:
+                        context.fillStyle = "#0000ff";
+                        break;
+                    case 5:
+                        context.fillStyle = "#ffff00";
+                        break;
+                    default:
+                    case 0: //block
+                        context.fillStyle = "#ffffff";
+                        break;
                 }
 
                 context.fillRect(columnNumber * tileLength, rowNumber * tileLength, tileLength, tileLength);

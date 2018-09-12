@@ -67,6 +67,9 @@ namespace Promethean.Core
                 }
             }
 
+            var tiler = new LevelTiler();
+            tiler.TileLevel(_level);
+
             return _level;
         }
     }

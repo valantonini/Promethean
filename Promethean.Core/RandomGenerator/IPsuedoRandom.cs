@@ -1,4 +1,4 @@
-namespace Promethean.Core
+namespace Promethean.Core.RandomGenerator
 {
     public interface IPsuedoRandom
     {

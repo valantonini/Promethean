@@ -3,6 +3,7 @@ using Xunit;
 using Promethean.Core;
 using FluentAssertions;
 using NSubstitute;
+using Promethean.Core.RandomGenerator;
 
 namespace Promethean.Tests
 {
