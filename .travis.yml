@@ -6,5 +6,5 @@ script:
  - cd ./Promethean.Core
  - dotnet restore
  - dotnet build
- - cd ../Promeathean.Tests
+ - cd ../Promethean.Tests
  - dotnet test
