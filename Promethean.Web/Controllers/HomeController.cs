@@ -13,7 +13,10 @@ namespace Promethean.Web.Controllers
         public IActionResult GetData()
         {
 
-            var options = new Options() { RandomSeed = new System.Random(System.Guid.NewGuid().GetHashCode()).Next() };
+            var options = new Options()
+            {
+                RandomSeed = new System.Random(System.Guid.NewGuid().GetHashCode()).Next()
+            };
             var generator = new LevelGenerator(options);
             var level = generator.Generate();
             var byteArray = level.Render();

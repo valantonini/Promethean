@@ -6,7 +6,7 @@ using NSubstitute;
 
 namespace Promethean.Tests
 {
-    public class TestRommGenerator
+    public class TestRoomGenerator
     {
         [Fact]
         public void ShouldDetermineCorrectMaxLeavingBorderOf1()
@@ -16,7 +16,8 @@ namespace Promethean.Tests
                 Width = 100,
                 Height = 90,
                 RoomWidth = 5,
-                RoomHeight = 3
+                RoomHeight = 3,
+                Border = 1
             };
 
             var mockRandom = Substitute.For<IPsuedoRandom>();

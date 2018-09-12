@@ -12,14 +12,16 @@ namespace Promethean.Core
 
         public int RandomSeed { get; set; }
 
+        public int Border { get; set; }
         public Options()
         {
-            Width = 51;
-            Height = 51;
-            RoomWidth = 11;
-            RoomHeight = 11;
-            NumberOfRooms = 7;
+            Width = 32;
+            Height = 32;
+            RoomWidth = 5;
+            RoomHeight = 5;
+            NumberOfRooms = 10;
             RandomSeed = 1;
+            Border = 1;
         }
     }
 }

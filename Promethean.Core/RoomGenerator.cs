@@ -15,20 +15,22 @@ namespace Promethean.Core
         public Room Generate(Options options)
         {
             var room = new Room();
-            
+
             room.Width = options.RoomWidth;
             room.Height = options.RoomHeight;
 
-            room.Position = new Point(){
-                X = _random.Next(1, DetermineMaxPosition(options.Width, room.Width)),
-                Y = _random.Next(1, DetermineMaxPosition(options.Height, room.Height))
+            room.Position = new Point()
+            {
+                X = _random.Next(options.Border, DetermineMaxPosition(options.Width, room.Width, options.Border)),
+                Y = _random.Next(options.Border, DetermineMaxPosition(options.Height, room.Height, options.Border))
             };
 
             return room;
         }
 
-        private static int DetermineMaxPosition(int levelDimension, int roomDimension){
-            return levelDimension - roomDimension;
+        private static int DetermineMaxPosition(int levelDimension, int roomDimension, int border)
+        {
+            return levelDimension - roomDimension - (border - 1);
         }
 
     }
