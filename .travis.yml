@@ -3,5 +3,8 @@ mono: none
 dotnet: 2.0.0
 dist: trusty
 script:
+ - cd ./Promethean.Core
  - dotnet restore
  - dotnet build
+ - cd ../Promeathean.Tests
+ - dotnet test
