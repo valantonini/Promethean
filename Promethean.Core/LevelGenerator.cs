@@ -14,7 +14,7 @@ namespace Promethean.Core
             _random = new PsuedoRandom(options.RandomSeed);
         }
 
-        public Level Generate()
+        public byte[,] Generate()
         {
             var level = new Level(_options.Width, _options.Height);
             var roomGenerator = new RoomGenerator(_random);

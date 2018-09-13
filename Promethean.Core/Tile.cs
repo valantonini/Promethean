@@ -2,7 +2,7 @@ namespace Promethean.Core
 {
     public static class Tile
     {
-        public static byte Open => 1;
+        public static byte Empty => 1;
 
         public static byte Floor => 0;
 
@@ -26,7 +26,7 @@ namespace Promethean.Core
     public static class TileMask
     {
         public static byte? wild => null;
-        public static byte open => Tile.Open;
+        public static byte open => Tile.Empty;
         public static byte blck => Tile.Floor;
     }
 }

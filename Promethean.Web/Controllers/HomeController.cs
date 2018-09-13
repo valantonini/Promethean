@@ -18,16 +18,16 @@ namespace Promethean.Web.Controllers
                 RandomSeed = new System.Random(seed).Next(),
                 Border = 2
             };
+
             var generator = new LevelGenerator(options);
             var level = generator.Generate();
-            var byteArray = level.Render();
 
             return Json(new
             {
                 seed = seed,
                 width = options.Width,
                 height = options.Height,
-                level = byteArray
+                level = level
             });
         }
     }

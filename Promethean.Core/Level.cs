@@ -17,9 +17,10 @@ namespace Promethean.Core
             {
                 for (var column = 0; column < _level.GetLength(1); column++)
                 {
-                    _level[row, column] = 1;
+                    _level[row, column] = Tile.Empty;
                 }
             }
+
             _rooms = new List<Room>();
         }
 
