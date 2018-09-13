@@ -15,7 +15,8 @@ namespace Promethean.Web.Controllers
             var seed = System.Guid.NewGuid().GetHashCode();
             var options = new Options()
             {
-                RandomSeed = new System.Random(seed).Next()
+                RandomSeed = new System.Random(seed).Next(),
+                Border = 2
             };
             var generator = new LevelGenerator(options);
             var level = generator.Generate();
