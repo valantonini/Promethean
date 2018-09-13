@@ -3,7 +3,6 @@ using Xunit;
 using Promethean.Core;
 using FluentAssertions;
 using NSubstitute;
-using System.Drawing;
 
 namespace Promethean.Tests
 {

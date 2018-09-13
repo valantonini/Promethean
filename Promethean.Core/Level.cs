@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using AStar;
-using System.Drawing;
 
 namespace Promethean.Core
 {
@@ -38,7 +37,10 @@ namespace Promethean.Core
                 var current = _rooms[index];
                 var next = _rooms[index + 1];
                 var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
-                var path = pathfinder.FindPath(current.RoomCentre, next.RoomCentre);
+                var path = pathfinder.FindPath(
+                    start: new System.Drawing.Point(current.RoomCentre.X, current.RoomCentre.Y),
+                    end: new System.Drawing.Point(next.RoomCentre.X, next.RoomCentre.Y)
+                );
                 paths.Add(path);
             }
             return paths;
@@ -50,12 +52,11 @@ namespace Promethean.Core
 
             foreach (var room in _rooms)
             {
-                Console.WriteLine(room.ToString());
                 for (var row = 0; row < room.Width; row++)
                 {
                     for (var column = 0; column < room.Height; column++)
                     {
-                        _level[room.Position.Y + row, room.Position.X + column] = Tile.Floor;
+                        _level[room.Position.Row + row, room.Position.Column + column] = Tile.Floor;
                     }
                 }
             }

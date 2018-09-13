@@ -1,5 +1,3 @@
-using System.Drawing;
-
 namespace Promethean.Core
 {
     public static class MatrixExtensions

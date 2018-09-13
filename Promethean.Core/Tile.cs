@@ -21,6 +21,18 @@ namespace Promethean.Core
         public static byte BottomLeftOutsideCorner => 12;
         public static byte BottomRightOutsideCorner => 13;
 
+        public static byte TopNub => 14;
+        public static byte RightNub => 15;
+        public static byte BottomNub => 16;
+        public static byte LeftNub => 17;
+
+        public static byte DoubleVerticalWall => 18;
+        public static byte DoubleHorizontalWall => 19;
+
+
+
+
+
     }
 
     public static class TileMask

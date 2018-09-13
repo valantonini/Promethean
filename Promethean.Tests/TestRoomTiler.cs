@@ -1,7 +1,6 @@
 using Xunit;
 using Promethean.Core;
 using FluentAssertions;
-using System.Drawing;
 
 namespace Promethean.Tests
 {
