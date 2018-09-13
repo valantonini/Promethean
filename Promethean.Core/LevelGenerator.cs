@@ -25,7 +25,7 @@ namespace Promethean.Core
                 level.Add(room);
             }
 
-            return level;
+            return level.Render();
         }
     }
 }
