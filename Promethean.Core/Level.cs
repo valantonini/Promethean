@@ -55,7 +55,7 @@ namespace Promethean.Core
                 {
                     for (var column = 0; column < room.Height; column++)
                     {
-                        _level[room.Position.Y + row, room.Position.X + column] = (byte)0;
+                        _level[room.Position.Y + row, room.Position.X + column] = Tile.Floor;
                     }
                 }
             }
@@ -64,7 +64,7 @@ namespace Promethean.Core
             {
                 foreach (var node in path)
                 {
-                    _level[node.Y, node.X] = 0;
+                    _level[node.Y, node.X] = Tile.Floor;
                 }
             }
 
