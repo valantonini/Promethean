@@ -25,8 +25,8 @@ namespace Promethean.Web.Controllers
             return Json(new
             {
                 seed = seed,
-                width = options.Width,
-                height = options.Height,
+                width = level.GetLength(0),
+                height = level.GetLength(1),
                 level = level
             });
         }
