@@ -31,7 +31,7 @@ namespace Promethean.Core
         private List<List<PathFinderNode>> GenerateCorridors()
         {
             var paths = new List<List<PathFinderNode>>();
-            _rooms.Sort(new RoomComparer());
+            _rooms.Sort(new DistanceFromOriginComparer());
             for (var index = 0; index < _rooms.Count - 1; index++)
             {
                 var current = _rooms[index];

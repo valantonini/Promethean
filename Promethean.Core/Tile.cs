@@ -28,11 +28,6 @@ namespace Promethean.Core
 
         public static byte DoubleVerticalWall => 18;
         public static byte DoubleHorizontalWall => 19;
-
-
-
-
-
     }
 
     public static class TileMask

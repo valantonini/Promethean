@@ -25,7 +25,7 @@ namespace Promethean.Tests
                 {wild,blck,blck}
             };
 
-            LevelTiler.GridEqualsMask(theGrid, new Point(1, 1), theMask).Should().Be(true);
+            LevelTiler.SurroundingAreaMatchesPattern(theGrid, new Point(1, 1), theMask).Should().Be(true);
         }
     }
 }

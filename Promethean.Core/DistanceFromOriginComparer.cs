@@ -3,7 +3,7 @@ using System;
 
 namespace Promethean.Core
 {
-    public class RoomComparer : IComparer<Room>
+    public class DistanceFromOriginComparer : IComparer<Room>
     {
         public int Compare(Room room1, Room room2)
         {
