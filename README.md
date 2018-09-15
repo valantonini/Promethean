@@ -15,7 +15,7 @@ A procedural dungeon generator library compatible with Unity3d built on .Net Sta
 - Inside Corner x 4
 - Outside Corner x 4
 - Wall x 4 (Top, Right, Bottom, Left)
-- floor
+- Floor
 
 ## Limitations
 - Square tiles
