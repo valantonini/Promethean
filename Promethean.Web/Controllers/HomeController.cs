@@ -10,12 +10,13 @@ namespace Promethean.Web.Controllers
             return View();
         }
 
-        public IActionResult GetData()
+        public IActionResult GetData(int? seed = null)
         {
-            var seed = System.Guid.NewGuid().GetHashCode();
+            seed = seed ?? System.Guid.NewGuid().GetHashCode();
+            //seed = 1954860574;
             var options = new Options()
             {
-                RandomSeed = new System.Random(seed).Next(),
+                RandomSeed = new System.Random(seed.Value).Next(),
                 Border = 2
             };
 

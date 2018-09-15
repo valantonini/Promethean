@@ -23,11 +23,15 @@ namespace Promethean.Core
                     {
                         if (SurroundingAreaMatchesPattern(level, new Point(column, row), tile.Pattern))
                         {
-                            tilePoints.Add(new TilePoint()
+                            foreach (var paintPoint in tile.PaintOffsets)
                             {
-                                TileType = tile.TileToApply,
-                                Position = tile.OffsetToApplyTile.Of(row, column)
-                            });
+                                tilePoints.Add(new TilePoint()
+                                {
+                                    TileType = paintPoint.TileType,
+                                    Position = paintPoint.Position.Of(row, column)
+                                });
+                            }
+
                             break;
                         }
                     }
