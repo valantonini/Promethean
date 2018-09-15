@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/valantonini/Promethean.svg?branch=master)](https://travis-ci.org/valantonini/Promethean)
 
-A procedural dungeon generator library compatible with Unity3d built on .Net Standard 2.0. Aiming to render in under 30 seconds on an iPhone 8 
+A procedural dungeon generator library compatible with Unity3d built on .Net Standard 2.0. Aiming to render in under 30 seconds on an iPhone 8.
 
 ![Current Progress](https://raw.githubusercontent.com/valantonini/Promethean/master/Examples/Example.png "Current Progress")
 
@@ -11,15 +11,11 @@ A procedural dungeon generator library compatible with Unity3d built on .Net Sta
 
 ## 2nd Stage Goals
 
-Convert the byte array to a tileset that indicates:
-- horizontal wall
-- vertical wall
-- L shaped wall corners x 4 (1 for each orientation)
+- [x] Convert the byte array to a tileset that indicates:
+- Inside Corner x 4
+- Outside Corner x 4
+- Wall x 4 (Top, Right, Bottom, Left)
 - floor
-- horizontal corridor
-- vertical corridor
-- L shaped corridor x 4 (1 for each orientation)
-- T shaped corridor x 4 (1 for each orientation)
 
 ## Limitations
 - Square tiles
