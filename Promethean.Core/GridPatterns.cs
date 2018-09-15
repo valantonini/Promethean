@@ -197,22 +197,7 @@ namespace Promethean.Core
                 PaintOffsets = new TilePoint[]{
                     new TilePoint { TileType = Tile.TopRightOutsideCorner, Position = TilePositionOffsets.Bottom }
                 }
-            },
-
-
-
-            // new GridPattern
-            // {
-            //     Name = "Bottom Right Inside For Touching",
-            //     Pattern = new byte?[,]{
-            //         {open,blck,blck},
-            //         {open,blck,blck},
-            //         {blck,open,open}
-            //     },
-            //     PaintOffsets = new TilePoint[]{
-            //         new TilePoint { TileType = Tile.TopRightOutsideCorner, Position = TilePositionOffsets.Bottom }
-            //     }
-            // },
+            }
         };
     }
 }
