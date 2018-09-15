@@ -38,8 +38,8 @@ namespace Promethean.Core
                 var next = _rooms[index + 1];
                 var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
                 var path = pathfinder.FindPath(
-                    start: new System.Drawing.Point(current.RoomCentre.X, current.RoomCentre.Y),
-                    end: new System.Drawing.Point(next.RoomCentre.X, next.RoomCentre.Y)
+                    start: new AStar.Point(current.RoomCentre.X, current.RoomCentre.Y),
+                    end: new AStar.Point(next.RoomCentre.X, next.RoomCentre.Y)
                 );
                 paths.Add(path);
             }

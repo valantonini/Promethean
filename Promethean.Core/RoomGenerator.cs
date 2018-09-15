@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using Promethean.Core.RandomGenerator;
 
 namespace Promethean.Core
