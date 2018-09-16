@@ -7,21 +7,32 @@ namespace Promethean.Core
     public class Level
     {
         private byte[,] _level;
-        private readonly List<Room> _rooms;
 
         public Level(int width, int height)
         {
             _level = new byte[width, height];
-            for (var row = 0; row < _level.GetLength(0); row++)
+            for (var y = 0; y < _level.GetLength(0); y++)
             {
-                for (var column = 0; column < _level.GetLength(1); column++)
+                for (var x = 0; x < _level.GetLength(1); x++)
                 {
-                    _level[row, column] = Tile.Empty;
+                    SetTile(x, y, Tile.Empty);
                 }
             }
 
             _rooms = new List<Room>();
         }
+        public void SetTile(Point point, byte tile)
+        {
+            SetTile(point.X, point.Y, tile);
+        }
+        public void SetTile(int x, int y, byte tile)
+        {
+            _level[y, x] = tile;
+        }
+
+
+        private readonly List<Room> _rooms;
+
 
         internal void Add(Room room)
         {
