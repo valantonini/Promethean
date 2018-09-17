@@ -4,13 +4,8 @@ namespace Promethean.Core
     {
         public string Name { get; set; }
 
-        //public byte TileToApply { get; set; }
-
         public byte?[,] Pattern { get; set; }
 
-        //public Point OffsetToApplyTile { get; set; } = TilePositionOffsets.Current;
-
         public TilePoint[] PaintOffsets { get; set; } = new TilePoint[0];
-
     }
 }

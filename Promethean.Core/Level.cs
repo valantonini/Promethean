@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AStar;
 
 namespace Promethean.Core
@@ -7,74 +8,85 @@ namespace Promethean.Core
     public class Level
     {
         private byte[,] _level;
-        private readonly List<Room> _rooms;
+
+        public int Height => _level.GetLength(0);
+        public int Width => _level.GetLength(1);
 
         public Level(int width, int height)
         {
-            _level = new byte[width, height];
-            for (var row = 0; row < _level.GetLength(0); row++)
+            _level = new byte[height, width];
+            for (var y = 0; y < _level.GetLength(0); y++)
             {
-                for (var column = 0; column < _level.GetLength(1); column++)
+                for (var x = 0; x < _level.GetLength(1); x++)
                 {
-                    _level[row, column] = Tile.Empty;
+                    SetTileByXandY(x, y, Tile.Empty);
                 }
             }
-
-            _rooms = new List<Room>();
         }
 
-        internal void Add(Room room)
+        public void SetTile(Point point, byte tile)
         {
-            _rooms.Add(room);
+            SetTileByRowAndColumn(point.Y, point.X, tile);
+        }
+        public void SetTileByXandY(int x, int y, byte tile)
+        {
+            SetTileByRowAndColumn(y, x, tile);
         }
 
-        private List<List<PathFinderNode>> GenerateCorridors()
+        public void SetTileByRowAndColumn(int row, int column, byte tile)
         {
-            var paths = new List<List<PathFinderNode>>();
-            _rooms.Sort(new DistanceFromOriginComparer());
-            for (var index = 0; index < _rooms.Count - 1; index++)
-            {
-                var current = _rooms[index];
-                var next = _rooms[index + 1];
-                var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
-                var path = pathfinder.FindPath(
-                    start: new AStar.Point(current.RoomCentre.X, current.RoomCentre.Y),
-                    end: new AStar.Point(next.RoomCentre.X, next.RoomCentre.Y)
-                );
-                paths.Add(path);
-            }
-            return paths;
+            _level[row, column] = tile;
+        }
+
+        public byte this[Point point]
+        {
+            get => _level[point.Y, point.X];
+            set => SetTile(point, value);
+        }
+
+        public byte this[int row, int column]
+        {
+            get => _level[row, column];
+            set => SetTileByRowAndColumn(row, column, value);
+        }
+
+        public List<Point> FindPath(Point start, Point end)
+        {
+            var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
+            var path = pathfinder.FindPath(
+                start: new AStar.Point(start.Y, start.X),
+                end: new AStar.Point(end.Y, end.X)
+            );
+            return path.Select(node => new Point(node.Y, node.X)).ToList();
         }
 
         public byte[,] Render()
         {
-            var paths = GenerateCorridors();
+            return _level;
+        }
 
-            foreach (var room in _rooms)
+        public void Inflate(int inflationFactor)
+        {
+            var inflatedMatrix = new byte[_level.GetLength(0) * inflationFactor, _level.GetLength(1) * inflationFactor];
+            for (var row = 0; row < _level.GetLength(0); row++)
             {
-                for (var row = 0; row < room.Width; row++)
+                for (var column = 0; column < _level.GetLength(1); column++)
                 {
-                    for (var column = 0; column < room.Height; column++)
+                    for (var xR = 0; xR < inflationFactor; xR++)
                     {
-                        _level[room.Position.Row + row, room.Position.Column + column] = Tile.Floor;
+                        for (var xY = 0; xY < inflationFactor; xY++)
+                        {
+                            inflatedMatrix[row * inflationFactor + xR, column * inflationFactor + xY] = _level[row, column];
+                        }
                     }
                 }
             }
+            _level = inflatedMatrix;
+        }
 
-            foreach (var path in paths)
-            {
-                foreach (var node in path)
-                {
-                    _level[node.Y, node.X] = Tile.Floor;
-                }
-            }
-
-            _level = _level.Explode(2);
-
-            var tiler = new LevelTiler();
-            tiler.TileLevel(_level);
-
-            return _level;
+        public override string ToString()
+        {
+            return TextRenderer.RenderAsString(_level);
         }
     }
 }
