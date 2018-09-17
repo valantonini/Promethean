@@ -20,7 +20,5 @@ A procedural dungeon generator library compatible with Unity3d built on .Net Sta
 ## Limitations
 - Square tiles
 - No diagonals 
-- Only square rooms 
-- Fixed size rooms (temporary)
-- Grid must be power of 2
+- ~~Only square rooms~~
 

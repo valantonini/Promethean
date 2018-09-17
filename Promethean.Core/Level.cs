@@ -54,10 +54,10 @@ namespace Promethean.Core
         {
             var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
             var path = pathfinder.FindPath(
-                start: new AStar.Point(start.X, start.Y),
-                end: new AStar.Point(end.X, end.Y)
+                start: new AStar.Point(start.Y, start.X),
+                end: new AStar.Point(end.Y, end.X)
             );
-            return path.Select(node => new Point(node.X, node.Y)).ToList();
+            return path.Select(node => new Point(node.Y, node.X)).ToList();
         }
 
         public byte[,] Render()
