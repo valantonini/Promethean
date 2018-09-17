@@ -19,13 +19,22 @@ namespace Promethean.Tests
                 {open,blck,blck}
             };
 
+            var level = new Level(3, 3);
+            for (var y = 0; y < theGrid.GetLength(0); y++)
+            {
+                for (var x = 0; x < theGrid.GetLength(1); x++)
+                {
+                    level.SetTileByXandY(x, y, theGrid[y, x]);
+                }
+            }
+
             var theMask = new byte?[,]{
                 {wild,open,open},
                 {open,blck,blck},
                 {wild,blck,blck}
             };
 
-            LevelTiler.SurroundingAreaMatchesPattern(theGrid, new Point(1, 1), theMask).Should().Be(true);
+            LevelTiler.SurroundingAreaMatchesPattern(level, new Point(1, 1), theMask).Should().Be(true);
         }
     }
 }

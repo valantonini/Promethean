@@ -1,6 +1,8 @@
+using System;
+
 namespace Promethean.Core
 {
-    public class Point
+    public class Point : IEquatable<Point>
     {
         private int _x = 0;
         private int _y = 0;
@@ -34,6 +36,37 @@ namespace Promethean.Core
         {
             _x = x;
             _y = y;
+        }
+        public static bool operator ==(Point a, Point b)
+        {
+            return a?.X == b?.X && a?.Y == b?.Y;
+        }
+
+        public static bool operator !=(Point a, Point b)
+        {
+            return !(a == b);
+        }
+
+        public bool Equals(Point other)
+        {
+            return X == other?.X && Y == other?.Y;
+        }
+
+        public override bool Equals(Object other)
+        {
+            var point2 = other as Point;
+
+            if (other == null)
+            {
+                return false;
+            }
+
+            return Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return $"[{X},{Y}]".GetHashCode();
         }
     }
 }

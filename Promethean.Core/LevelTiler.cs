@@ -4,15 +4,15 @@ namespace Promethean.Core
 {
     public class LevelTiler
     {
-
-        public void TileLevel(byte[,] level)
+        public void TileLevel(Level level)
         {
             var tilePoints = new List<TilePoint>();
 
-            for (var row = 1; row < level.GetLength(0) - 1; row++)
+            for (var row = 1; row < level.Height - 1; row++)
             {
-                for (var column = 1; column < level.GetLength(1) - 1; column++)
+                for (var column = 1; column < level.Width - 1; column++)
                 {
+
                     //only assess floor tiles
                     if (level[row, column] != Tile.Floor)
                     {
@@ -45,7 +45,7 @@ namespace Promethean.Core
             }
         }
 
-        public static bool SurroundingAreaMatchesPattern(byte[,] level, Point position, byte?[,] pattern)
+        public static bool SurroundingAreaMatchesPattern(Level level, Point position, byte?[,] pattern)
         {
             var start = new Point(position.X - 1, position.Y - 1);
 
@@ -53,6 +53,7 @@ namespace Promethean.Core
             {
                 for (var column = 0; column < pattern.GetLength(1); column++)
                 {
+
                     var maskValue = pattern[row, column];
 
                     if (maskValue is null)
@@ -61,6 +62,11 @@ namespace Promethean.Core
                     }
 
                     var targetValue = level[start.Y + row, start.X + column];
+
+                    if (targetValue == maskValue)
+                    {
+                        continue;
+                    }
 
                     if (targetValue == TileMask.open && maskValue != TileMask.open)
                     {
