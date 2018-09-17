@@ -9,27 +9,27 @@ namespace Promethean.Core
 
         public Point RoomCentre => new Point()
         {
-            X = Position.X + Width / 2,
-            Y = Position.Y + Height / 2
+            X = Position.X + Height / 2,
+            Y = Position.Y + Width / 2
         };
 
         public Point TopLeft => Position;
         public Point BottomLeft => new Point()
         {
-            X = Position.X,
-            Y = Position.Y + Height - 1
+            X = Position.X + Height - 1,
+            Y = Position.Y
         };
 
         public Point TopRight => new Point()
         {
-            X = Position.X + Width - 1,
-            Y = Position.Y + Height - 1
+            X = Position.X,
+            Y = Position.Y + Width - 1
         };
 
         public Point BottomRight => new Point()
         {
-            X = Position.X + Width - 1,
-            Y = Position.Y + Height - 1
+            X = Position.X + Height - 1,
+            Y = Position.Y + Width - 1
         };
 
         public override string ToString()

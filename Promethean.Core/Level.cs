@@ -12,52 +12,53 @@ namespace Promethean.Core
         public int Height => _level.GetLength(0);
         public int Width => _level.GetLength(1);
 
-        public Level(int width, int height)
+        public Level(int height, int width)
         {
             _level = new byte[height, width];
-            for (var y = 0; y < _level.GetLength(0); y++)
+            for (var x = 0; x < height; x++)
             {
-                for (var x = 0; x < _level.GetLength(1); x++)
+                for (var y = 0; y < width; y++)
                 {
-                    SetTileByXandY(x, y, Tile.Empty);
+                    _level[x, y] = Tile.Empty;
                 }
             }
         }
 
-        public void SetTile(Point point, byte tile)
+        public void SetTile(int x, int y, byte tile)
         {
-            SetTileByRowAndColumn(point.Y, point.X, tile);
-        }
-        public void SetTileByXandY(int x, int y, byte tile)
-        {
-            SetTileByRowAndColumn(y, x, tile);
+            _level[x, y] = tile;
         }
 
-        public void SetTileByRowAndColumn(int row, int column, byte tile)
-        {
-            _level[row, column] = tile;
-        }
 
         public byte this[Point point]
         {
-            get => _level[point.Y, point.X];
-            set => SetTile(point, value);
+            get => _level[point.X, point.Y];
+            set => SetTile(point.X, point.Y, value);
         }
 
-        public byte this[int row, int column]
+        public byte this[int x, int y]
         {
-            get => _level[row, column];
-            set => SetTileByRowAndColumn(row, column, value);
+            get => _level[x, y];
+            set => SetTile(x, y, value);
         }
 
         public List<Point> FindPath(Point start, Point end)
         {
             var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
             var path = pathfinder.FindPath(
-                start: new AStar.Point(start.Y, start.X),
-                end: new AStar.Point(end.Y, end.X)
+                start: new AStar.Point(start.X, start.Y),
+                end: new AStar.Point(end.X, end.Y)
             );
-            return path.Select(node => new Point(node.Y, node.X)).ToList();
+            foreach (var p in path)
+            {
+                Console.WriteLine($"[{p.X}, {p.Y}]");
+            }
+            var pointPath = path.Select(node => new Point(node.X, node.Y)).ToList();
+            foreach (var p in pointPath)
+            {
+                Console.WriteLine(p);
+            }
+            return pointPath;
         }
 
         public byte[,] Render()

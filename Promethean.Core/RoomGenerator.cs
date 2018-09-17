@@ -21,8 +21,8 @@ namespace Promethean.Core
 
             room.Position = new Point()
             {
-                X = _random.Next(options.Border, DetermineMaxPosition(options.Width, room.Width, options.Border)),
-                Y = _random.Next(options.Border, DetermineMaxPosition(options.Height, room.Height, options.Border))
+                X = _random.Next(options.Border, DetermineMaxPosition(options.Height, room.Height, options.Border)),
+                Y = _random.Next(options.Border, DetermineMaxPosition(options.Width, room.Width, options.Border))
             };
 
             return room;

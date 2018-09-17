@@ -9,11 +9,11 @@ namespace Promethean.Core
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine();
 
-            for (var row = 0; row < arr.GetLength(0); row++)
+            for (var x = 0; x < arr.GetLength(0); x++)
             {
-                for (var column = 0; column < arr.GetLength(1); column++)
+                for (var y = 0; y < arr.GetLength(1); y++)
                 {
-                    stringBuilder.Append(arr[row, column]);
+                    stringBuilder.Append(arr[x, y]);
                 }
                 stringBuilder.Append(System.Environment.NewLine);
             }
@@ -25,11 +25,11 @@ namespace Promethean.Core
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine();
-            for (var row = 0; row < arr.GetLength(0); row++)
+            for (var x = 0; x < arr.GetLength(0); x++)
             {
-                for (var column = 0; column < arr.GetLength(1); column++)
+                for (var y = 0; y < arr.GetLength(1); y++)
                 {
-                    stringBuilder.Append(arr[row, column]?.ToString() ?? "x");
+                    stringBuilder.Append(arr[x, y]?.ToString() ?? "x");
                 }
                 stringBuilder.Append(System.Environment.NewLine);
             }

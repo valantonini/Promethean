@@ -8,27 +8,27 @@ namespace Promethean.Core
         {
             var tilePoints = new List<TilePoint>();
 
-            for (var row = 1; row < level.Height - 1; row++)
+            for (var x = 1; x < level.Height - 1; x++)
             {
-                for (var column = 1; column < level.Width - 1; column++)
+                for (var y = 1; y < level.Width - 1; y++)
                 {
 
                     //only assess floor tiles
-                    if (level[row, column] != Tile.Floor)
+                    if (level[x, y] != Tile.Floor)
                     {
                         continue;
                     }
 
                     foreach (var tile in GridPatterns.GridPatternList)
                     {
-                        if (SurroundingAreaMatchesPattern(level, new Point(column, row), tile.Pattern))
+                        if (SurroundingAreaMatchesPattern(level, new Point(x, y), tile.Pattern))
                         {
                             foreach (var paintPoint in tile.PaintOffsets)
                             {
                                 tilePoints.Add(new TilePoint()
                                 {
                                     TileType = paintPoint.TileType,
-                                    Position = paintPoint.Position.Of(row, column)
+                                    Position = paintPoint.Position.Of(x, y)
                                 });
                             }
 
@@ -41,7 +41,7 @@ namespace Promethean.Core
 
             foreach (var tilePoint in tilePoints)
             {
-                level[tilePoint.Position.Row, tilePoint.Position.Column] = tilePoint.TileType;
+                level[tilePoint.Position.X, tilePoint.Position.Y] = tilePoint.TileType;
             }
         }
 
@@ -49,19 +49,18 @@ namespace Promethean.Core
         {
             var start = new Point(position.X - 1, position.Y - 1);
 
-            for (var row = 0; row < pattern.GetLength(0); row++)
+            for (var x = 0; x < pattern.GetLength(0); x++)
             {
-                for (var column = 0; column < pattern.GetLength(1); column++)
+                for (var y = 0; y < pattern.GetLength(1); y++)
                 {
-
-                    var maskValue = pattern[row, column];
+                    var maskValue = pattern[x, y];
 
                     if (maskValue is null)
                     {
                         continue;
                     }
 
-                    var targetValue = level[start.Y + row, start.X + column];
+                    var targetValue = level[start.X + x, start.Y + y];
 
                     if (targetValue == maskValue)
                     {
