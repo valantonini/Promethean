@@ -13,11 +13,12 @@ namespace Promethean.Tests
         {
             var room = new Room();
             room.Position = new Point(3, 5);
-            room.Width = 7;
-            room.Height = 9;
 
-            room.RoomCentre.X.Should().Be(6);
-            room.RoomCentre.Y.Should().Be(9);
+            room.Height = 9;
+            room.Width = 7;
+
+            room.RoomCentre.X.Should().Be(7);
+            room.RoomCentre.Y.Should().Be(8);
         }
     }
 }

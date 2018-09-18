@@ -16,8 +16,8 @@ namespace Promethean.Core
         {
             var room = new Room();
 
-            room.Width = options.RoomWidth;
-            room.Height = options.RoomHeight;
+            room.Width = _random.Next(options.MinRoomWidth, options.MaxRoomWidth);
+            room.Height = _random.Next(options.MinRoomHeight, options.MaxRoomHeight);
 
             var x = _random.Next(options.Border, DetermineMaxPosition(options.Height, room.Height, options.Border));
             var y = _random.Next(options.Border, DetermineMaxPosition(options.Width, room.Width, options.Border));
