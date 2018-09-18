@@ -12,11 +12,7 @@ namespace Promethean.Tests
         public void ShouldDetermineCorrectRoomCenter()
         {
             var room = new Room();
-            room.Position = new Point()
-            {
-                X = 3,
-                Y = 5
-            };
+            room.Position = new Point(3, 5);
             room.Width = 7;
             room.Height = 9;
 

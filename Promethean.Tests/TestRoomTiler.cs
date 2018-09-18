@@ -24,7 +24,7 @@ namespace Promethean.Tests
             {
                 for (var x = 0; x < theGrid.GetLength(1); x++)
                 {
-                    level.SetTileByXandY(x, y, theGrid[y, x]);
+                    level[x, y] = theGrid[y, x];
                 }
             }
 
