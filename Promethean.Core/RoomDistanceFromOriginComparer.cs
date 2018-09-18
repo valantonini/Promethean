@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace Promethean.Core
 {
-    public class DistanceFromOriginComparer : IComparer<Room>
+    public class RoomDistanceFromOriginComparer : IComparer<Room>
     {
         public int Compare(Room room1, Room room2)
         {
@@ -17,8 +17,8 @@ namespace Promethean.Core
 
         private double CalculateDistanceBetween2Points(Point origin, Point point)
         {
-            var XaMinuxXbSquared = (point.X - origin.X) ^ 2;
-            var YaMinusYbSquared = (point.Y - origin.Y) ^ 2;
+            var XaMinuxXbSquared = Math.Pow(point.X - origin.X, 2);
+            var YaMinusYbSquared = Math.Pow(point.Y - origin.Y, 2);
 
             return Math.Sqrt(XaMinuxXbSquared + YaMinusYbSquared);
         }

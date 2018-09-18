@@ -8,7 +8,7 @@ namespace Promethean.Core
 
         public IEnumerable<List<Point>> Generate(Level level, List<Room> rooms)
         {
-            rooms.Sort(new DistanceFromOriginComparer());
+            rooms.Sort(new RoomDistanceFromOriginComparer());
 
             for (var index = 0; index < rooms.Count - 1; index++)
             {
