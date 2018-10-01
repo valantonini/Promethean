@@ -27,8 +27,8 @@ namespace Promethean.Core
         {
             var level = new Level(_options.Height, _options.Width);
 
-            var rooms = GenerateRooms(_options).ToList();
-            var corridors = GenerateCorridors(level, rooms).ToList();
+            var rooms = GenerateRooms(_options);
+            var corridors = GenerateCorridors(level, rooms);
 
             RenderRoomsOnLevel(level, rooms);
             RenderCorridorsOnLevel(level, corridors);
@@ -40,16 +40,18 @@ namespace Promethean.Core
             return level;
         }
 
-        private IEnumerable<Room> GenerateRooms(Options options)
+        private List<Room> GenerateRooms(Options options)
         {
+            var rooms = new List<Room>();
             for (var roomCount = 0; roomCount < _options.NumberOfRooms; roomCount++)
             {
                 var room = _roomGenerator.Generate(_options);
-                yield return room;
+                rooms.Add(room);
             }
+            return rooms;
         }
 
-        private IEnumerable<List<Point>> GenerateCorridors(Level level, List<Room> rooms)
+        private List<Corridor> GenerateCorridors(Level level, List<Room> rooms)
         {
             return _corridorGenerator.Generate(level, rooms);
         }
@@ -70,11 +72,11 @@ namespace Promethean.Core
             }
         }
 
-        private static void RenderCorridorsOnLevel(Level level, List<List<Point>> corridors)
+        private static void RenderCorridorsOnLevel(Level level, List<Corridor> corridors)
         {
             foreach (var corridor in corridors)
             {
-                foreach (var point in corridor)
+                foreach (var point in corridor.Tiles)
                 {
                     level[point] = Tile.Floor;
                 }
