@@ -13,7 +13,7 @@ namespace Promethean.Web.Controllers
         public IActionResult GetData(int? seed = null)
         {
             seed = seed ?? System.Guid.NewGuid().GetHashCode();
-            //seed = 1954860574;
+
             var options = new Options()
             {
                 RandomSeed = new System.Random(seed.Value).Next(),

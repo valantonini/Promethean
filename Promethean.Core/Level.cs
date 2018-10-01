@@ -29,7 +29,6 @@ namespace Promethean.Core
             _level[x, y] = tile;
         }
 
-
         public byte this[Point point]
         {
             get => _level[point.X, point.Y];
@@ -45,19 +44,14 @@ namespace Promethean.Core
         public List<Point> FindPath(Point start, Point end)
         {
             var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
+
             var path = pathfinder.FindPath(
                 start: new AStar.Point(start.X, start.Y),
                 end: new AStar.Point(end.X, end.Y)
             );
-            foreach (var p in path)
-            {
-                Console.WriteLine($"[{p.X}, {p.Y}]");
-            }
+
             var pointPath = path.Select(node => new Point(node.X, node.Y)).ToList();
-            foreach (var p in pointPath)
-            {
-                Console.WriteLine(p);
-            }
+
             return pointPath;
         }
 
