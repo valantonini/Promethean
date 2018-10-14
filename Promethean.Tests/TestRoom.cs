@@ -11,11 +11,7 @@ namespace Promethean.Tests
         [Fact]
         public void ShouldDetermineCorrectRoomCenter()
         {
-            var room = new Room();
-            room.Position = new Point(3, 5);
-
-            room.Height = 9;
-            room.Width = 7;
+            var room = new Room(9, 7, 3, 5);
 
             room.RoomCentre.X.Should().Be(7);
             room.RoomCentre.Y.Should().Be(8);

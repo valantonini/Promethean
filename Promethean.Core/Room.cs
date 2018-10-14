@@ -14,9 +14,9 @@ namespace Promethean.Core
             BottomRight = new Point(Position.X + Height - 1, Position.Y + Width - 1);
         }
 
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public Point Position { get; set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public Point Position { get; private set; }
 
         public Point TopLeft => Position;
         public Point RoomCentre { get; private set; }
