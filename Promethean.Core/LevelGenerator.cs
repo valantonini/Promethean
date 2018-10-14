@@ -25,9 +25,10 @@ namespace Promethean.Core
 
         public Level Generate()
         {
-            var level = new Level(_options.Height, _options.Width);
+            var level = new Level(_options.LevelHeight, _options.LevelWidth);
 
-            var rooms = GenerateRooms(_options);
+            //var rooms = GenerateRooms(_options);
+            var rooms = GenerateNonOverlappingRooms(_options);
             var corridors = GenerateCorridors(level, rooms);
 
             RenderRoomsOnLevel(level, rooms);
@@ -48,6 +49,32 @@ namespace Promethean.Core
                 var room = _roomGenerator.Generate(_options);
                 rooms.Add(room);
             }
+            return rooms;
+        }
+
+        private List<Room> GenerateNonOverlappingRooms(Options options)
+        {
+            var retryLimit = 100;
+
+            var rooms = new List<Room>();
+            for (var roomCount = 0; roomCount < _options.NumberOfRooms; roomCount++)
+            {
+                var count = 0;
+                var room = _roomGenerator.Generate(_options);
+                while (rooms.Any(r => r.Intersects(room, 1)))
+                {
+                    Console.WriteLine("collision");
+                    if (++count == retryLimit)
+                    {
+                        Console.WriteLine("Too many retries");
+                        return rooms;
+                    }
+                    room = _roomGenerator.Generate(_options);
+                }
+
+                rooms.Add(room);
+            }
+
             return rooms;
         }
 

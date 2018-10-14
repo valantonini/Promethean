@@ -14,14 +14,19 @@ namespace Promethean.Core
 
         public Room Generate(Options options)
         {
-            var room = new Room();
 
-            room.Width = _random.Next(options.MinRoomWidth, options.MaxRoomWidth);
-            room.Height = _random.Next(options.MinRoomHeight, options.MaxRoomHeight);
+            var roomWidth = _random.Next(options.MinRoomWidth, options.MaxRoomWidth);
+            var roomHeight = _random.Next(options.MinRoomHeight, options.MaxRoomHeight);
+            var roomX = _random.Next(options.Border, DetermineMaxPosition(options.LevelHeight, roomHeight, options.Border));
+            var roomY = _random.Next(options.Border, DetermineMaxPosition(options.LevelWidth, roomWidth, options.Border));
 
-            var x = _random.Next(options.Border, DetermineMaxPosition(options.Height, room.Height, options.Border));
-            var y = _random.Next(options.Border, DetermineMaxPosition(options.Width, room.Width, options.Border));
-            room.Position = new Point(x, y);
+            var room = new Room(roomHeight, roomWidth, roomX, roomY);
+            //room.Width = 
+            //room.Height = _random.Next(options.MinRoomHeight, options.MaxRoomHeight);
+
+            var x = _random.Next(options.Border, DetermineMaxPosition(options.LevelHeight, room.Height, options.Border));
+            var y = _random.Next(options.Border, DetermineMaxPosition(options.LevelWidth, room.Width, options.Border));
+            //room.Position = new Point(x, y);
 
             return room;
         }

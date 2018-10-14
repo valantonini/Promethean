@@ -2,8 +2,8 @@ namespace Promethean.Core
 {
     public class Options
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public int LevelWidth { get; set; }
+        public int LevelHeight { get; set; }
 
         public int MinRoomWidth { get; set; }
         public int MaxRoomWidth { get; set; }
@@ -17,8 +17,8 @@ namespace Promethean.Core
         public int Border { get; set; }
         public Options()
         {
-            Width = 32;
-            Height = 32;
+            LevelWidth = 32;
+            LevelHeight = 32;
             MinRoomWidth = 5;
             MaxRoomWidth = 7;
             MinRoomHeight = 5;
