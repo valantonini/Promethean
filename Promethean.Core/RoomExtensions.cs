@@ -16,8 +16,5 @@ namespace Promethean.Core
 
             return true;
         }
-
-
-
     }
 }

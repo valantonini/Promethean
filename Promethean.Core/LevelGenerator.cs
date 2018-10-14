@@ -63,12 +63,11 @@ namespace Promethean.Core
                 var room = _roomGenerator.Generate(_options);
                 while (rooms.Any(r => r.Intersects(room, 1)))
                 {
-                    Console.WriteLine("collision");
                     if (++count == retryLimit)
                     {
-                        Console.WriteLine("Too many retries");
                         return rooms;
                     }
+
                     room = _roomGenerator.Generate(_options);
                 }
 
