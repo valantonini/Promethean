@@ -14,7 +14,6 @@ namespace Promethean.Core
 
         public Room Generate(Options options)
         {
-
             var roomWidth = _random.Next(options.MinRoomWidth, options.MaxRoomWidth);
             var roomHeight = _random.Next(options.MinRoomHeight, options.MaxRoomHeight);
             var roomX = _random.Next(options.Border, DetermineMaxPosition(options.LevelHeight, roomHeight, options.Border));
@@ -29,6 +28,5 @@ namespace Promethean.Core
         {
             return levelDimension - roomDimension - (border - 1);
         }
-
     }
 }
