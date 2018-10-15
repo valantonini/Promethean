@@ -24,8 +24,8 @@ namespace Promethean.Core
 
     public static class TileMask
     {
-        public static byte? wild => null;
-        public static byte open => Tile.Empty;
-        public static byte blck => Tile.Floor;
+        public static readonly byte? wild = null;
+        public static readonly byte open = Tile.Empty;
+        public static readonly byte blck = Tile.Floor;
     }
 }

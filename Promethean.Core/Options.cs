@@ -15,6 +15,8 @@ namespace Promethean.Core
         public int RandomSeed { get; set; }
 
         public int Border { get; set; }
+
+        public bool OverlapRooms { get; set; }
         public Options()
         {
             LevelWidth = 32;
@@ -26,6 +28,7 @@ namespace Promethean.Core
             NumberOfRooms = 10;
             RandomSeed = 1;
             Border = 1;
+            OverlapRooms = false;
         }
     }
 }

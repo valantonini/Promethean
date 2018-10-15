@@ -27,8 +27,10 @@ namespace Promethean.Core
         {
             var level = new Level(_options.LevelHeight, _options.LevelWidth);
 
-            //var rooms = GenerateRooms(_options);
-            var rooms = GenerateNonOverlappingRooms(_options);
+            var rooms = _options.OverlapRooms
+                                ? GenerateRooms(_options)
+                                : GenerateNonOverlappingRooms(_options);
+
             var corridors = GenerateCorridors(level, rooms);
 
             RenderRoomsOnLevel(level, rooms);
