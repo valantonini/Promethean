@@ -23,5 +23,9 @@ namespace Promethean.Tests
         {
             return _numbers.Dequeue();
         }
+        public int NextOdd(int min, int max)
+        {
+            return _numbers.Dequeue();
+        }
     }
 }

@@ -84,17 +84,20 @@ namespace Promethean.Core
             return _corridorGenerator.Generate(level, rooms);
         }
 
-        private static void RenderRoomsOnLevel(Level level, List<Room> rooms)
+        private void RenderRoomsOnLevel(Level level, List<Room> rooms)
         {
             foreach (var room in rooms)
             {
+                var r = _random.Next(1, 10) % 2 == 0 ? (IRoomRenderer)new SquareRenderer() : (IRoomRenderer)new CrossRenderer();
+
+                var tiles = r.GetTiles(room);
                 for (var xOffset = 0; xOffset < room.Height; xOffset++)
                 {
                     for (var yOffset = 0; yOffset < room.Width; yOffset++)
                     {
                         var x = room.Position.X + xOffset;
                         var y = room.Position.Y + yOffset;
-                        level[x, y] = Tile.Floor;
+                        level[x, y] = tiles[xOffset, yOffset];
                     }
                 }
             }

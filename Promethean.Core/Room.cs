@@ -1,4 +1,6 @@
 
+using System;
+
 namespace Promethean.Core
 {
     public struct Room
@@ -27,6 +29,30 @@ namespace Promethean.Core
         public override string ToString()
         {
             return $"Position: [{Position.X}, {Position.Y}], Width: {Width} Height: {Height}";
+        }
+        public byte[,] GetTiles()
+        {
+            var arr = new byte[Height, Width];
+            for (var x = 0; x < Height; x++)
+            {
+                for (var y = 0; y < Width; y++)
+                {
+                    var xLowerBound = Height * 0.333 - 1;
+                    var xUpperBound = Height * 0.666;
+
+                    var yLowerBound = Width * 0.333 - 1;
+                    var yUpperBound = Width * 0.666;
+                    if ((x > xLowerBound && x < xUpperBound) || (y > yLowerBound && y < yUpperBound))
+                    {
+                        arr[x, y] = Tile.Floor;
+                    }
+                    else
+                    {
+                        arr[x, y] = Tile.Empty;
+                    }
+                }
+            }
+            return arr;
         }
     }
 }
