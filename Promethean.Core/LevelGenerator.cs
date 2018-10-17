@@ -50,7 +50,6 @@ namespace Promethean.Core
         {
             foreach (var room in rooms)
             {
-                //var r = _random.Next(1, 10) % 2 == 0 ? (IRoomRenderer)new SquareRenderer() : (IRoomRenderer)new CrossRenderer();
                 var renderer = RoomRenderers.Instance[room.RoomType];
                 var tiles = renderer.GetTiles(room);
                 for (var xOffset = 0; xOffset < room.Height; xOffset++)
