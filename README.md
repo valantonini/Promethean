@@ -19,6 +19,20 @@ A procedural dungeon generator library compatible with Unity3d built on .Net Sta
 - Wall x 4 (Top, Right, Bottom, Left)
 - Floor
 
+## 3rd Stage Goals
+- [x] Support a variety of room shapes
+- [x] Prevent overlapping of rooms
+
+## 4th Stage Goals
+- More intelligent room overlap failover
+- Defined entries and exits of tooms
+
+## 5th Stage Goals
+- Doors
+
+## Far future
+- doodads
+
 ## Limitations
 - Square tiles
 - No diagonals 
