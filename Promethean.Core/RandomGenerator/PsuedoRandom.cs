@@ -15,5 +15,16 @@ namespace Promethean.Core.RandomGenerator
         {
             return _random.Next(min, max);
         }
+
+        public int NextOdd(int min, int max)
+        {
+            var next = _random.Next(min, max);
+            if (next % 2 != 0)
+            {
+                return next;
+            }
+
+            return next < max ? next + 1 : next - 1;
+        }
     }
 }

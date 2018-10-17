@@ -28,6 +28,16 @@
                 "kind": "test",
                 "isDefault": true
             }
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/Promethean.Sln"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

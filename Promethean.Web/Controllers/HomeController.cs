@@ -17,7 +17,8 @@ namespace Promethean.Web.Controllers
             var options = new Options()
             {
                 RandomSeed = new System.Random(seed.Value).Next(),
-                Border = 2
+                Border = 2,
+                OverlapRooms = false
             };
 
             var generator = new LevelGenerator(options);

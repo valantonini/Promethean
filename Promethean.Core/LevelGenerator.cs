@@ -25,9 +25,10 @@ namespace Promethean.Core
 
         public Level Generate()
         {
-            var level = new Level(_options.Height, _options.Width);
+            var level = new Level(_options.LevelHeight, _options.LevelWidth);
 
-            var rooms = GenerateRooms(_options);
+            var rooms = _roomGenerator.GenerateRooms(_options);
+
             var corridors = GenerateCorridors(level, rooms);
 
             RenderRoomsOnLevel(level, rooms);
@@ -40,33 +41,24 @@ namespace Promethean.Core
             return level;
         }
 
-        private List<Room> GenerateRooms(Options options)
-        {
-            var rooms = new List<Room>();
-            for (var roomCount = 0; roomCount < _options.NumberOfRooms; roomCount++)
-            {
-                var room = _roomGenerator.Generate(_options);
-                rooms.Add(room);
-            }
-            return rooms;
-        }
-
         private List<Corridor> GenerateCorridors(Level level, List<Room> rooms)
         {
             return _corridorGenerator.Generate(level, rooms);
         }
 
-        private static void RenderRoomsOnLevel(Level level, List<Room> rooms)
+        private void RenderRoomsOnLevel(Level level, List<Room> rooms)
         {
             foreach (var room in rooms)
             {
+                var renderer = RoomRenderers.Instance[room.RoomType];
+                var tiles = renderer.GetTiles(room);
                 for (var xOffset = 0; xOffset < room.Height; xOffset++)
                 {
                     for (var yOffset = 0; yOffset < room.Width; yOffset++)
                     {
                         var x = room.Position.X + xOffset;
                         var y = room.Position.Y + yOffset;
-                        level[x, y] = Tile.Floor;
+                        level[x, y] = tiles[xOffset, yOffset];
                     }
                 }
             }
