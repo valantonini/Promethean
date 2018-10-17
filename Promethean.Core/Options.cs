@@ -17,6 +17,8 @@ namespace Promethean.Core
         public int Border { get; set; }
 
         public bool OverlapRooms { get; set; }
+
+        public RoomType[] RoomTypes { get; set; }
         public Options()
         {
             LevelWidth = 32;
@@ -29,6 +31,7 @@ namespace Promethean.Core
             RandomSeed = 1;
             Border = 1;
             OverlapRooms = false;
+            RoomTypes = new RoomType[] { RoomType.Square, RoomType.Rectangle, RoomType.Cross, RoomType.Diamond };
         }
     }
 }

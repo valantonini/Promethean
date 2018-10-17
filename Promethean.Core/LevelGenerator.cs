@@ -27,9 +27,7 @@ namespace Promethean.Core
         {
             var level = new Level(_options.LevelHeight, _options.LevelWidth);
 
-            var rooms = _options.OverlapRooms
-                                ? GenerateRooms(_options)
-                                : GenerateNonOverlappingRooms(_options);
+            var rooms = _roomGenerator.GenerateRooms(_options);
 
             var corridors = GenerateCorridors(level, rooms);
 
@@ -43,42 +41,6 @@ namespace Promethean.Core
             return level;
         }
 
-        private List<Room> GenerateRooms(Options options)
-        {
-            var rooms = new List<Room>();
-            for (var roomCount = 0; roomCount < _options.NumberOfRooms; roomCount++)
-            {
-                var room = _roomGenerator.Generate(_options);
-                rooms.Add(room);
-            }
-            return rooms;
-        }
-
-        private List<Room> GenerateNonOverlappingRooms(Options options)
-        {
-            var retryLimit = 100;
-
-            var rooms = new List<Room>();
-            for (var roomCount = 0; roomCount < _options.NumberOfRooms; roomCount++)
-            {
-                var count = 0;
-                var room = _roomGenerator.Generate(_options);
-                while (rooms.Any(r => r.Intersects(room, 1)))
-                {
-                    if (++count == retryLimit)
-                    {
-                        return rooms;
-                    }
-
-                    room = _roomGenerator.Generate(_options);
-                }
-
-                rooms.Add(room);
-            }
-
-            return rooms;
-        }
-
         private List<Corridor> GenerateCorridors(Level level, List<Room> rooms)
         {
             return _corridorGenerator.Generate(level, rooms);
@@ -88,9 +50,9 @@ namespace Promethean.Core
         {
             foreach (var room in rooms)
             {
-                var r = _random.Next(1, 10) % 2 == 0 ? (IRoomRenderer)new SquareRenderer() : (IRoomRenderer)new CrossRenderer();
-
-                var tiles = r.GetTiles(room);
+                //var r = _random.Next(1, 10) % 2 == 0 ? (IRoomRenderer)new SquareRenderer() : (IRoomRenderer)new CrossRenderer();
+                var renderer = RoomRenderers.Instance[room.RoomType];
+                var tiles = renderer.GetTiles(room);
                 for (var xOffset = 0; xOffset < room.Height; xOffset++)
                 {
                     for (var yOffset = 0; yOffset < room.Width; yOffset++)

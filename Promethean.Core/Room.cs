@@ -5,7 +5,7 @@ namespace Promethean.Core
 {
     public struct Room
     {
-        public Room(int roomHeight, int roomWidth, int roomX, int roomY)
+        public Room(int roomHeight, int roomWidth, int roomX, int roomY, RoomType roomType = RoomType.Rectangle)
         {
             Height = roomHeight;
             Width = roomWidth;
@@ -14,6 +14,7 @@ namespace Promethean.Core
             BottomLeft = new Point(Position.X + Height - 1, Position.Y);
             TopRight = new Point(Position.X, Position.Y + Width - 1);
             BottomRight = new Point(Position.X + Height - 1, Position.Y + Width - 1);
+            RoomType = roomType;
         }
 
         public int Width { get; private set; }
@@ -25,6 +26,7 @@ namespace Promethean.Core
         public Point BottomLeft { get; private set; }
         public Point TopRight { get; private set; }
         public Point BottomRight { get; private set; }
+        public RoomType RoomType { get; private set; }
 
         public override string ToString()
         {
