@@ -41,20 +41,68 @@ namespace Promethean.Core
             {
                 var count = 0;
                 var room = Generate(options);
-                while (rooms.Any(r => r.Intersects(room, 1)))
+                if (rooms.Any(r => r.Intersects(room, 1)))
                 {
-                    if (++count == retryLimit)
+                    var repositionedRoom = Reposition(rooms, room, options);
+                    if (repositionedRoom == null)
                     {
                         return rooms;
                     }
-
-                    room = Generate(options);
+                    room = repositionedRoom.Value;
                 }
 
                 rooms.Add(room);
             }
 
             return rooms;
+        }
+
+        private Room? Reposition(List<Room> rooms, Room room, Options options)
+        {
+            var directions = new Point[] { TilePositionOffsets.Top, TilePositionOffsets.TopRight, TilePositionOffsets.Right, TilePositionOffsets.BottomRight, TilePositionOffsets.Bottom, TilePositionOffsets.BottomLeft, TilePositionOffsets.Left, TilePositionOffsets.TopLeft };
+
+            var count = 1;
+            var minX = options.Border;
+            var minY = options.Border;
+            var maxX = DetermineMaxPosition(options.LevelHeight, room.Height, 1);
+            var maxY = DetermineMaxPosition(options.LevelWidth, room.Width, 1);
+
+            while (true)
+            {
+
+                foreach (var direction in directions)
+                {
+                    var newX = room.Position.X + (direction.X * count);
+                    var newY = room.Position.Y + (direction.Y * count);
+
+                    if (newX < minX || newX >= maxX)
+                    {
+                        continue;
+                    }
+
+                    if (newY < minY || newY >= maxY)
+                    {
+                        continue;
+                    }
+
+                    var newRoomCandidate = new Room(room.Height, room.Width, newX, newY, room.RoomType);
+
+                    if (!rooms.Any(r => r.Intersects(newRoomCandidate, 1)))
+                    {
+                        return newRoomCandidate;
+                    }
+                }
+                count++;
+                if (room.Position.X - count < 0 &&
+                   room.Position.X + count >= options.LevelHeight - room.Height - 1 &&
+                   room.Position.Y - count < 0 &&
+                   room.Position.Y + count >= options.LevelWidth - room.Height - 1)
+                {
+                    Console.WriteLine($"no new position for {room.ToString()}");
+                    return null;
+                }
+            }
+
         }
 
         private Room Generate(Options options)
