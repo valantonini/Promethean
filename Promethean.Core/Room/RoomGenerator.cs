@@ -60,6 +60,7 @@ namespace Promethean.Core
         private Room? Reposition(List<Room> rooms, Room room, Options options)
         {
             var directions = new Point[] { TilePositionOffsets.Top, TilePositionOffsets.TopRight, TilePositionOffsets.Right, TilePositionOffsets.BottomRight, TilePositionOffsets.Bottom, TilePositionOffsets.BottomLeft, TilePositionOffsets.Left, TilePositionOffsets.TopLeft };
+            //var directions = new Point[] { TilePositionOffsets.TopLeft };
 
             var count = 1;
             var minX = options.Border;
@@ -67,14 +68,15 @@ namespace Promethean.Core
             var maxX = DetermineMaxPosition(options.LevelHeight, room.Height, 1);
             var maxY = DetermineMaxPosition(options.LevelWidth, room.Width, 1);
 
+            Console.WriteLine($"commencing reposition of {room.ToString()}");
+
             while (true)
             {
-
                 foreach (var direction in directions)
                 {
                     var newX = room.Position.X + (direction.X * count);
                     var newY = room.Position.Y + (direction.Y * count);
-
+                    Console.WriteLine($"Attempting [{newX}, {newY}]");
                     if (newX < minX || newX >= maxX)
                     {
                         continue;
@@ -87,8 +89,9 @@ namespace Promethean.Core
 
                     var newRoomCandidate = new Room(room.Height, room.Width, newX, newY, room.RoomType);
 
-                    if (!rooms.Any(r => r.Intersects(newRoomCandidate, 1)))
+                    if (!rooms.Any(r => r.Intersects(newRoomCandidate, 2)))
                     {
+                        Console.WriteLine($"New position found {newRoomCandidate.ToString()}");
                         return newRoomCandidate;
                     }
                 }
