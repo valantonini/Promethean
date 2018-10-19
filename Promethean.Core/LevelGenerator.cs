@@ -34,9 +34,9 @@ namespace Promethean.Core
             RenderRoomsOnLevel(level, rooms);
             RenderCorridorsOnLevel(level, corridors);
 
-            level.Inflate(2);
+            //level.Inflate(2);
 
-            _levelTiler.TileLevel(level);
+            //_levelTiler.TileLevel(level);
 
             return level;
         }

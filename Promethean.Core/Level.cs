@@ -41,19 +41,6 @@ namespace Promethean.Core
             set => SetTile(x, y, value);
         }
 
-        public List<Point> FindPath(Point start, Point end)
-        {
-            var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
-
-            var path = pathfinder.FindPath(
-                start: new AStar.Point(start.X, start.Y),
-                end: new AStar.Point(end.X, end.Y)
-            );
-
-            var pointPath = path.Select(node => new Point(node.X, node.Y)).ToList();
-
-            return pointPath;
-        }
 
         public byte[,] Render()
         {

@@ -41,7 +41,7 @@ namespace Promethean.Core
             {
                 var count = 0;
                 var room = Generate(options);
-                if (rooms.Any(r => r.Intersects(room, 1)))
+                if (rooms.Any(r => r.Intersects(room, options.RoomBorder)))
                 {
                     var repositionedRoom = Reposition(rooms, room, options);
                     if (repositionedRoom == null)
@@ -60,7 +60,6 @@ namespace Promethean.Core
         private Room? Reposition(List<Room> rooms, Room room, Options options)
         {
             var directions = new Point[] { TilePositionOffsets.Top, TilePositionOffsets.TopRight, TilePositionOffsets.Right, TilePositionOffsets.BottomRight, TilePositionOffsets.Bottom, TilePositionOffsets.BottomLeft, TilePositionOffsets.Left, TilePositionOffsets.TopLeft };
-            //var directions = new Point[] { TilePositionOffsets.TopLeft };
 
             var count = 1;
             var minX = options.Border;
@@ -89,7 +88,7 @@ namespace Promethean.Core
 
                     var newRoomCandidate = new Room(room.Height, room.Width, newX, newY, room.RoomType);
 
-                    if (!rooms.Any(r => r.Intersects(newRoomCandidate, 2)))
+                    if (!rooms.Any(r => r.Intersects(newRoomCandidate, options.RoomBorder)))
                     {
                         Console.WriteLine($"New position found {newRoomCandidate.ToString()}");
                         return newRoomCandidate;
