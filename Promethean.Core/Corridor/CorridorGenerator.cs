@@ -8,40 +8,9 @@ namespace Promethean.Core
     public class CorridorGenerator
     {
 
-        public List<Corridor> Generate(Level level, List<Room> rooms)
+        public List<Corridor> Generate(List<Room> rooms, Options options)
         {
-            var pathableLevel = new byte[level.Height, level.Width];
-
-            for (var x = 1; x < level.Height - 1; x++)
-            {
-                for (var y = 1; y < level.Width - 1; y++)
-                {
-                    pathableLevel[x, y] = Tile.Empty;
-                }
-            }
-
-            foreach (var room in rooms)
-            {
-                for (var xOffset = 0; xOffset < room.Height; xOffset++)
-                {
-                    for (var yOffset = 0; yOffset < room.Width; yOffset++)
-                    {
-                        var x = room.Position.X + xOffset;
-                        var y = room.Position.Y + yOffset;
-
-                        if (x == room.RoomCentre.X || y == room.RoomCentre.Y)
-                        {
-                            pathableLevel[x, y] = Tile.Empty;
-                            continue;
-                        }
-
-                        pathableLevel[x, y] = Tile.Floor;
-                    }
-                }
-            }
-
-            Console.WriteLine(TextRenderer.RenderAsString(pathableLevel));
-
+            var pathableLevel = GeneratePathingGrid(rooms, options);
             var pathfinder = new PathFinder(pathableLevel, new PathFinderOptions() { Diagonals = false, PunishChangeDirection = true });
 
             rooms.Sort(new RoomDistanceFromOriginComparer());
@@ -76,18 +45,56 @@ namespace Promethean.Core
         }
 
 
-        // public List<Point> FindPath(Point start, Point end)
-        // {
-        //     var pathfinder = new PathFinder(_level, new PathFinderOptions() { Diagonals = false });
 
-        //     var path = pathfinder.FindPath(
-        //         start: new AStar.Point(start.X, start.Y),
-        //         end: new AStar.Point(end.X, end.Y)
-        //     );
+        private byte[,] GeneratePathingGrid(List<Room> rooms, Options options)
+        {
+            var pathableLevel = new byte[options.LevelHeight, options.LevelWidth];
 
-        //     var pointPath = path.Select(node => new Point(node.X, node.Y)).ToList();
+            for (var x = options.Border; x < options.LevelHeight - options.Border; x++)
+            {
+                for (var y = options.Border; y < options.LevelWidth - options.Border; y++)
+                {
+                    pathableLevel[x, y] = PathFinderTile.Pathable;
+                }
+            }
 
-        //     return pointPath;
-        // }
+            foreach (var room in rooms)
+            {
+                for (var xOffset = 0 - options.RoomBorder; xOffset < room.Height + options.RoomBorder; xOffset++)
+                {
+                    for (var yOffset = 0 - options.RoomBorder; yOffset < room.Width + options.RoomBorder; yOffset++)
+                    {
+                        var x = room.Position.X + xOffset;
+                        var y = room.Position.Y + yOffset;
+
+                        if (x < 0 + options.Border || x > options.LevelHeight - options.Border)
+                        {
+                            continue;
+                        }
+
+                        if (y < 0 + options.Border || y > options.LevelWidth - options.Border)
+                        {
+                            continue;
+                        }
+
+                        if (x == room.RoomCentre.X || y == room.RoomCentre.Y)
+                        {
+                            pathableLevel[x, y] = PathFinderTile.Pathable;
+                            continue;
+                        }
+
+                        pathableLevel[x, y] = PathFinderTile.Blocked;
+                    }
+                }
+            }
+
+            return pathableLevel;
+        }
+        private class PathFinderTile
+        {
+            public const byte Pathable = 1;
+            public const byte Blocked = 0;
+        }
     }
+
 }

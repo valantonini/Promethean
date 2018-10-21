@@ -34,12 +34,9 @@ namespace Promethean.Core
 
         private List<Room> GenerateNonOverlappingRooms(Options options)
         {
-            var retryLimit = 100;
-
             var rooms = new List<Room>();
             for (var roomCount = 0; roomCount < options.NumberOfRooms; roomCount++)
             {
-                var count = 0;
                 var room = Generate(options);
                 if (rooms.Any(r => r.Intersects(room, options.RoomBorder)))
                 {
@@ -59,23 +56,23 @@ namespace Promethean.Core
 
         private Room? Reposition(List<Room> rooms, Room room, Options options)
         {
-            var directions = new Point[] { TilePositionOffsets.Top, TilePositionOffsets.TopRight, TilePositionOffsets.Right, TilePositionOffsets.BottomRight, TilePositionOffsets.Bottom, TilePositionOffsets.BottomLeft, TilePositionOffsets.Left, TilePositionOffsets.TopLeft };
+            var directions = new Point[] { TilePositionOffsets.TopLeft, TilePositionOffsets.Top, TilePositionOffsets.TopRight,
+                                           TilePositionOffsets.Left , TilePositionOffsets.Right,
+                                           TilePositionOffsets.BottomLeft, TilePositionOffsets.Bottom, TilePositionOffsets.BottomRight };
 
-            var count = 1;
             var minX = options.Border;
             var minY = options.Border;
-            var maxX = DetermineMaxPosition(options.LevelHeight, room.Height, 1);
-            var maxY = DetermineMaxPosition(options.LevelWidth, room.Width, 1);
+            var maxX = DetermineMaxPosition(options.LevelHeight, room.Height, options.Border);
+            var maxY = DetermineMaxPosition(options.LevelWidth, room.Width, options.Border);
 
-            Console.WriteLine($"commencing reposition of {room.ToString()}");
-
+            var count = 1;
             while (true)
             {
                 foreach (var direction in directions)
                 {
                     var newX = room.Position.X + (direction.X * count);
                     var newY = room.Position.Y + (direction.Y * count);
-                    Console.WriteLine($"Attempting [{newX}, {newY}]");
+
                     if (newX < minX || newX >= maxX)
                     {
                         continue;
@@ -90,21 +87,20 @@ namespace Promethean.Core
 
                     if (!rooms.Any(r => r.Intersects(newRoomCandidate, options.RoomBorder)))
                     {
-                        Console.WriteLine($"New position found {newRoomCandidate.ToString()}");
                         return newRoomCandidate;
                     }
                 }
+
                 count++;
+
                 if (room.Position.X - count < 0 &&
                    room.Position.X + count >= options.LevelHeight - room.Height - 1 &&
                    room.Position.Y - count < 0 &&
                    room.Position.Y + count >= options.LevelWidth - room.Height - 1)
                 {
-                    Console.WriteLine($"no new position for {room.ToString()}");
                     return null;
                 }
             }
-
         }
 
         private Room Generate(Options options)

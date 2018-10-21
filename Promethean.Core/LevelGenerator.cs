@@ -29,21 +29,21 @@ namespace Promethean.Core
 
             var rooms = _roomGenerator.GenerateRooms(_options);
 
-            var corridors = GenerateCorridors(level, rooms);
+            var corridors = GenerateCorridors(rooms, _options);
 
             RenderRoomsOnLevel(level, rooms);
             RenderCorridorsOnLevel(level, corridors);
 
-            //level.Inflate(2);
+            level.Inflate(2);
 
-            //_levelTiler.TileLevel(level);
+            _levelTiler.TileLevel(level);
 
             return level;
         }
 
-        private List<Corridor> GenerateCorridors(Level level, List<Room> rooms)
+        private List<Corridor> GenerateCorridors(List<Room> rooms, Options options)
         {
-            return _corridorGenerator.Generate(level, rooms);
+            return _corridorGenerator.Generate(rooms, options);
         }
 
         private void RenderRoomsOnLevel(Level level, List<Room> rooms)
