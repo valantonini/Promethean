@@ -56,51 +56,27 @@ namespace Promethean.Core
 
         private Room? Reposition(List<Room> rooms, Room room, Options options)
         {
-            var directions = new Point[] { TilePositionOffsets.TopLeft, TilePositionOffsets.Top, TilePositionOffsets.TopRight,
-                                           TilePositionOffsets.Left , TilePositionOffsets.Right,
-                                           TilePositionOffsets.BottomLeft, TilePositionOffsets.Bottom, TilePositionOffsets.BottomRight };
-
             var minX = options.Border;
             var minY = options.Border;
             var maxX = DetermineMaxPosition(options.LevelHeight, room.Height, options.Border);
             var maxY = DetermineMaxPosition(options.LevelWidth, room.Width, options.Border);
 
-            var count = 1;
-            while (true)
+            var spiralPositions = MatrixExtensions.SpiralOutFromPosition(room.Position, new Point(minX, minY), new Point(maxX, maxY));
+
+            Console.WriteLine($"Starting: {room.Position.ToString()}");
+            foreach (var position in spiralPositions)
             {
-                foreach (var direction in directions)
+                Console.WriteLine($"Attempting {position.ToString()}");
+                var newRoomCandidate = new Room(room.Height, room.Width, position.X, position.Y, room.RoomType);
+
+                if (!rooms.Any(r => r.Intersects(newRoomCandidate, options.RoomBorder)))
                 {
-                    var newX = room.Position.X + (direction.X * count);
-                    var newY = room.Position.Y + (direction.Y * count);
-
-                    if (newX < minX || newX >= maxX)
-                    {
-                        continue;
-                    }
-
-                    if (newY < minY || newY >= maxY)
-                    {
-                        continue;
-                    }
-
-                    var newRoomCandidate = new Room(room.Height, room.Width, newX, newY, room.RoomType);
-
-                    if (!rooms.Any(r => r.Intersects(newRoomCandidate, options.RoomBorder)))
-                    {
-                        return newRoomCandidate;
-                    }
-                }
-
-                count++;
-
-                if (room.Position.X - count < 0 &&
-                   room.Position.X + count >= options.LevelHeight - room.Height - 1 &&
-                   room.Position.Y - count < 0 &&
-                   room.Position.Y + count >= options.LevelWidth - room.Height - 1)
-                {
-                    return null;
+                    Console.WriteLine($"Found {newRoomCandidate.Position.ToString()}");
+                    return newRoomCandidate;
                 }
             }
+            Console.WriteLine("No position found");
+            return null;
         }
 
         private Room Generate(Options options)

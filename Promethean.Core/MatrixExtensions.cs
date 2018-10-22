@@ -1,57 +1,87 @@
+using System;
 using System.Collections.Generic;
 
 namespace Promethean.Core
 {
     public static class MatrixExtensions
     {
-        public static IEnumerable<Point> SpiralOutFromPosition(this byte[,] array, Point startingPosition)
+        public static IEnumerable<Point> SpiralOutFromPosition(Point startingPosition, Point lowerBound, Point upperBound)
         {
-            var directions = new Point[] { TilePositionOffsets.TopLeft, TilePositionOffsets.Top, TilePositionOffsets.TopRight,
-                                           TilePositionOffsets.Left , TilePositionOffsets.Right,
-                                           TilePositionOffsets.BottomLeft, TilePositionOffsets.Bottom, TilePositionOffsets.BottomRight };
-
-            var minX = 0;
-            var minY = 0;
-            var maxX = array.GetLength(0) - 1;
-            var maxY = array.GetLength(1) - 1;
             var offset = 1;
-
-            while (startingPosition.X - offset >= minX &&
-                  startingPosition.X + offset <= maxX &&
-                  startingPosition.Y - offset >= minY &&
-                  startingPosition.Y + offset <= maxY)
+            do
             {
+                var topLeft = new Point(startingPosition.X - offset, startingPosition.Y - offset);
+                var topRight = new Point(startingPosition.X - offset, startingPosition.Y + offset);
+                var bottomRight = new Point(startingPosition.X + offset, startingPosition.Y + offset);
+                var bottomLeft = new Point(startingPosition.X + offset, startingPosition.Y - offset);
 
-                for (var x = 0 - offset; x <= offset; x++)
+
+                Console.WriteLine($"LowerBound: {lowerBound}");
+                Console.WriteLine($"UpperBound: {upperBound}");
+                Console.WriteLine($"TopLeft: {topLeft}");
+                Console.WriteLine($"TopRight: {topRight}");
+                Console.WriteLine($"BottomLeft: {bottomLeft}");
+                Console.WriteLine($"BottomRight: {bottomRight}");
+
+                if (topLeft.X >= lowerBound.X)
                 {
-                    for (var y = 0 - offset; y <= offset; y++)
+                    for (var y = topLeft.Y; y <= topRight.Y && y <= upperBound.Y; y++)
                     {
-                        var newX = startingPosition.X + x;
-                        var newY = startingPosition.Y + y;
-
-                        if (newX < minX || newX >= maxX)
+                        if (y < lowerBound.Y)
                         {
-                            //out of bounds x
                             continue;
                         }
+                        yield return new Point(topLeft.X, y);
+                    }
+                }
 
-                        if (newY < minY || newY >= maxY)
+                if (topRight.Y <= upperBound.Y)
+                {
+                    for (var x = topRight.X + 1; x < bottomRight.X && x <= upperBound.X; x++)
+                    {
+                        if (x < lowerBound.X)
                         {
-                            //out of bounds y
                             continue;
                         }
+                        yield return new Point(x, topRight.Y);
+                    }
+                }
 
-                        if (newX == startingPosition.X && newY == startingPosition.Y)
+                if (bottomRight.X <= upperBound.X)
+                {
+                    for (var y = bottomRight.Y; y >= bottomLeft.Y && y >= lowerBound.Y; y--)
+                    {
+                        if (y > upperBound.Y)
                         {
-                            //starting pos
                             continue;
                         }
+                        yield return new Point(bottomRight.X, y);
+                    }
+                }
 
-                        yield return new Point(newX, newY);
+                if (bottomLeft.Y >= lowerBound.Y)
+                {
+                    for (var x = bottomLeft.X - 1; x >= topLeft.X && x >= lowerBound.X + 1; x--)
+                    {
+                        if (x > upperBound.X)
+                        {
+                            continue;
+                        }
+                        yield return new Point(x, bottomLeft.Y);
                     }
                 }
                 offset++;
+
+                if (startingPosition.X - offset < lowerBound.X &&
+                   startingPosition.X + offset > upperBound.X &&
+                   startingPosition.Y - offset < lowerBound.Y &&
+                   startingPosition.Y + offset > upperBound.Y)
+                {
+                    break;
+                }
             }
+            while (true);
+            yield break;
         }
     }
 }
