@@ -53,7 +53,7 @@ namespace Promethean.Core
 
                 if (bottomLeft.Y >= lowerBound.Y)
                 {
-                    for (var x = bottomLeft.X - 1; x >= topLeft.X && x >= lowerBound.X + 1; x--)
+                    for (var x = bottomLeft.X - 1; x > topLeft.X && x >= lowerBound.X + 1; x--)
                     {
                         if (x > upperBound.X)
                         {
