@@ -15,14 +15,6 @@ namespace Promethean.Core
                 var bottomRight = new Point(startingPosition.X + offset, startingPosition.Y + offset);
                 var bottomLeft = new Point(startingPosition.X + offset, startingPosition.Y - offset);
 
-
-                Console.WriteLine($"LowerBound: {lowerBound}");
-                Console.WriteLine($"UpperBound: {upperBound}");
-                Console.WriteLine($"TopLeft: {topLeft}");
-                Console.WriteLine($"TopRight: {topRight}");
-                Console.WriteLine($"BottomLeft: {bottomLeft}");
-                Console.WriteLine($"BottomRight: {bottomRight}");
-
                 if (topLeft.X >= lowerBound.X)
                 {
                     for (var y = topLeft.Y; y <= topRight.Y && y <= upperBound.Y; y++)
