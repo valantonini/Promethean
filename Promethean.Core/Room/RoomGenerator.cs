@@ -34,27 +34,45 @@ namespace Promethean.Core
 
         private List<Room> GenerateNonOverlappingRooms(Options options)
         {
-            var retryLimit = 100;
-
             var rooms = new List<Room>();
             for (var roomCount = 0; roomCount < options.NumberOfRooms; roomCount++)
             {
-                var count = 0;
                 var room = Generate(options);
-                while (rooms.Any(r => r.Intersects(room, 1)))
+                if (rooms.Any(r => r.Intersects(room, options.RoomBorder)))
                 {
-                    if (++count == retryLimit)
+                    var repositionedRoom = Reposition(rooms, room, options);
+                    if (repositionedRoom == null)
                     {
                         return rooms;
                     }
-
-                    room = Generate(options);
+                    room = repositionedRoom.Value;
                 }
 
                 rooms.Add(room);
             }
 
             return rooms;
+        }
+
+        private Room? Reposition(List<Room> rooms, Room room, Options options)
+        {
+            var minX = options.Border;
+            var minY = options.Border;
+            var maxX = DetermineMaxPosition(options.LevelHeight, room.Height, options.Border);
+            var maxY = DetermineMaxPosition(options.LevelWidth, room.Width, options.Border);
+
+            var spiralPositions = MatrixExtensions.SpiralOutFromPosition(room.Position, new Point(minX, minY), new Point(maxX, maxY));
+
+            foreach (var position in spiralPositions)
+            {
+                var newRoomCandidate = new Room(room.Height, room.Width, position.X, position.Y, room.RoomType);
+
+                if (!rooms.Any(r => r.Intersects(newRoomCandidate, options.RoomBorder)))
+                {
+                    return newRoomCandidate;
+                }
+            }
+            return null;
         }
 
         private Room Generate(Options options)

@@ -29,7 +29,7 @@ namespace Promethean.Core
 
             var rooms = _roomGenerator.GenerateRooms(_options);
 
-            var corridors = GenerateCorridors(level, rooms);
+            var corridors = GenerateCorridors(rooms, _options);
 
             RenderRoomsOnLevel(level, rooms);
             RenderCorridorsOnLevel(level, corridors);
@@ -41,9 +41,9 @@ namespace Promethean.Core
             return level;
         }
 
-        private List<Corridor> GenerateCorridors(Level level, List<Room> rooms)
+        private List<Corridor> GenerateCorridors(List<Room> rooms, Options options)
         {
-            return _corridorGenerator.Generate(level, rooms);
+            return _corridorGenerator.Generate(rooms, options);
         }
 
         private void RenderRoomsOnLevel(Level level, List<Room> rooms)
