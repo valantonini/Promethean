@@ -63,19 +63,15 @@ namespace Promethean.Core
 
             var spiralPositions = MatrixExtensions.SpiralOutFromPosition(room.Position, new Point(minX, minY), new Point(maxX, maxY));
 
-            Console.WriteLine($"Starting: {room.Position.ToString()}");
             foreach (var position in spiralPositions)
             {
-                Console.WriteLine($"Attempting {position.ToString()}");
                 var newRoomCandidate = new Room(room.Height, room.Width, position.X, position.Y, room.RoomType);
 
                 if (!rooms.Any(r => r.Intersects(newRoomCandidate, options.RoomBorder)))
                 {
-                    Console.WriteLine($"Found {newRoomCandidate.Position.ToString()}");
                     return newRoomCandidate;
                 }
             }
-            Console.WriteLine("No position found");
             return null;
         }
 

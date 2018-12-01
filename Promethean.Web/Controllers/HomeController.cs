@@ -16,8 +16,8 @@ namespace Promethean.Web.Controllers
 
             var options = new Options()
             {
-                //RandomSeed = new System.Random(seed.Value).Next(),
-                RandomSeed = 1863346693,
+                RandomSeed = new System.Random(seed.Value).Next(),
+                //RandomSeed = 1863346693,
                 Border = 2,
                 OverlapRooms = false,
                 NumberOfRooms = 45,
